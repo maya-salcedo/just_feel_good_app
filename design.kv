@@ -1,0 +1,23 @@
+<LoginScreen>: #Name of the screeen; works in hierarchial
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "User Login"
+            TextInput:
+                hint_text: "Username"
+            TextInput:
+                hint_text: "Password"
+            Button:
+                text: "Login"
+        GridLayout:
+            cols: 2
+            Button:
+                text: "Forgot Password?"
+            Button:
+                text: "Sign Up"
+
+<RootWidget>: # <inside of this is called rule>
+    LoginScreen:
+        name: "login_screen"
