@@ -1,23 +1,77 @@
 <LoginScreen>: #Name of the screeen; works in hierarchial
     GridLayout:
-        cols: 1
+        cols: 1 #column, must be specified
         GridLayout:
             cols: 1
             Label:
                 text: "User Login"
             TextInput:
+                id: username
                 hint_text: "Username"
             TextInput:
+                id: password
                 hint_text: "Password"
             Button:
                 text: "Login"
+                on_press: root.login(root.ids.username.text, root.ids.password.text)
+            Label:
+                text: ""
         GridLayout:
             cols: 2
             Button:
                 text: "Forgot Password?"
             Button:
                 text: "Sign Up"
+                on_press: root.sign_up() #root is the class of the rule widget; in this root refers to LoginScreen class
+
+<SignUpScreen>:
+    GridLayout:
+        cols: 1
+        Label:
+            text: "Sign up for a space journey!"
+        TextInput:
+            id: username
+            hint_text: "New Username"
+        TextInput:
+            id: password
+            hint_text: "New Password"
+        Button:
+            text: "Submit"
+            on_press: root.add_user(root.ids.username.text, root.ids.password.text) # .text is used to access the actual text
+            #root is the SignUpScreen, ids is a property inherited from Screen
+
+<SignUpScreenSuccess>:
+    GridLayout:
+        cols: 1
+        Label:
+            text: "Sign up successful!"
+        Button:
+            text: "Login page"
+            on_press: root.go_to_login()
+
+<LoginScreenSuccess>:
+    GridLayout:
+        cols: 1
+        Button:
+            text: "Logout"
+            on_press: root.log_out()
+        Label:
+            text: "How do you feel?"
+        TextInput:
+            hint_text: "Things to try: happy, sad, unloved..."
+        Button:
+            text: "Enlighten me"
+        Label:
+            text: ""
+
+
 
 <RootWidget>: # <inside of this is called rule>
     LoginScreen:
         name: "login_screen"
+    SignUpScreen:
+        name: "sign_up_screen"
+    SignUpScreenSuccess:
+        name: "sign_up_screen_success"
+    LoginScreenSuccess:
+        name: "login_success_screen"
