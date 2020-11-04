@@ -3,30 +3,51 @@
         cols: 1 #column, must be specified
         GridLayout:
             cols: 1
+            padding: 15, 15 #outside of the GridLayout
+            spacing: 20, 20 #between widget inside the GridLayout
             Label:
                 text: "User Login"
+                font_size: "20sp" # sp = space-independent pixels
             TextInput:
                 id: username
                 hint_text: "Username"
             TextInput:
                 id: password
+                password: True #to make the input display **** instead of the real character
                 hint_text: "Password"
-            Button:
-                text: "Login"
-                on_press: root.login(root.ids.username.text, root.ids.password.text)
+            RelativeLayout: #putting Button in RelativeLayout will help button widget to have 0.3
+             #size
+                Button:
+                    text: "Login"
+                    on_press: root.login(root.ids.username.text, root.ids.password.text)
+                    size_hint: 0.3, 0.5
+                    pos_hint: {"center_x": 0.5, "center_y": 0.6}
             Label:
+                id: login_wrong
                 text: ""
         GridLayout:
             cols: 2
+            size_hint: 0.2, 0.2 #it gives 20% space in the screen
+            padding: 10, 10
+            spacing: 10, 0
             Button:
                 text: "Forgot Password?"
+                background_color: 1,1,1,0
+                opacity: 1 if self.state == "normal" else 0.5
+                color: 0.1, 0.7, 1, 1
             Button:
                 text: "Sign Up"
+                background_color: 1,1,1,0
+                opacity: 1 if self.state == "normal" else 0.5
+                color: 0.1, 0.7, 1, 1
                 on_press: root.sign_up() #root is the class of the rule widget; in this root refers to LoginScreen class
+
 
 <SignUpScreen>:
     GridLayout:
         cols: 1
+        padding: 20, 20
+        spacing: 20, 20
         Label:
             text: "Sign up for a space journey!"
         TextInput:
@@ -43,6 +64,8 @@
 <SignUpScreenSuccess>:
     GridLayout:
         cols: 1
+        padding: 30, 30
+        spacing: 30, 30
         Label:
             text: "Sign up successful!"
         Button:
@@ -52,9 +75,14 @@
 <LoginScreenSuccess>:
     GridLayout:
         cols: 1
-        Button:
-            text: "Logout"
-            on_press: root.log_out()
+        padding: 30, 30
+        spacing: 30, 30
+        RelativeLayout
+            ImageButton:
+                on_press: root.log_out()
+                source: "logout_hover.png" if self.hovered else "logout_nothover.png"
+                size_hint: 0.35, 0.35
+                pos_hint: {"center_x": 0.93, "center_y": 0.8}
         Label:
             text: "How do you feel?"
         TextInput:
@@ -63,8 +91,15 @@
         Button:
             text: "Enlighten me"
             on_press: root.get_quote(root.ids.feeling.text)
-        Label:
-            text: ""
+        ScrollView:
+            Label:
+                id: quote
+                text: ""
+                text_size: self.width, None
+                size_hint_y: None
+                height: self.texture_size[1] #1st item is width, 2nd is the height; makes the label size
+                 #dynamic
+
 
 
 
